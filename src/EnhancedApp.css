@@ -1,0 +1,290 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Light theme */
+body:not(.dark-theme) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #2d3748;
+}
+
+/* Dark theme */
+body.dark-theme {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  color: #f7fafc;
+}
+
+/* Main container */
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated background particles */
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: float 20s infinite linear;
+  pointer-events: none;
+}
+
+body.dark-theme .app-container::before {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-20px) translateX(10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+/* Greeting card */
+.greeting-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 60px 40px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+  animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 90%;
+  min-width: 320px;
+}
+
+body.dark-theme .greeting-card {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Greeting text */
+.greeting-text {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #2d3748;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: colorShift 4s ease-in-out infinite;
+}
+
+body.dark-theme .greeting-text {
+  color: #f7fafc;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: colorShiftDark 4s ease-in-out infinite;
+}
+
+@keyframes colorShift {
+  0%, 100% {
+    color: #2d3748;
+  }
+  50% {
+    color: #4a5568;
+  }
+}
+
+@keyframes colorShiftDark {
+  0%, 100% {
+    color: #f7fafc;
+  }
+  50% {
+    color: #e2e8f0;
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(10deg); }
+}
+
+/* Dynamic greeting span */
+.greeting-dynamic {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-left: 8px;
+  animation: pulse 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark-theme .greeting-dynamic {
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+.greeting-dynamic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Time display */
+.time-display {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 500;
+  color: #4a5568;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+body.dark-theme .time-display {
+  color: #a0aec0;
+}
+
+/* Time icon */
+.time-icon {
+  font-size: 1.2em;
+  animation: rotate 60s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Decorative elements */
+.decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float 15s infinite ease-in-out;
+}
+
+.circle-1 {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.05);
+  top: 70%;
+  right: 10%;
+  animation-delay: -5s;
+}
+
+.circle-3 {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.08);
+  bottom: 20%;
+  left: 20%;
+  animation-delay: -10s;
+}
+
+body.dark-theme .circle-1,
+body.dark-theme .circle-2,
+body.dark-theme .circle-3 {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .greeting-card {
+    padding: 40px 30px;
+    margin: 20px;
+  }
+  
+  .greeting-text {
+    font-size: 2rem;
+  }
+  
+  .time-display {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .greeting-card {
+    padding: 30px 20px;
+  }
+  
+  .greeting-text {
+    font-size: 1.8rem;
+  }
+}
+
+/* Loading animation for time updates */
+.time-updating {
+  opacity: 0.7;
+  transform: scale(0.98);
+  transition: all 0.3s ease;
+}
+
+/* Enhanced accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
